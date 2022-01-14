@@ -1,0 +1,26 @@
+﻿@model ZJUCoursera1.DAL.Subject
+
+@{
+    ViewBag.Title = "学科信息";
+}
+
+<h2>细节信息</h2>
+
+<div>
+    <h4>学科</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

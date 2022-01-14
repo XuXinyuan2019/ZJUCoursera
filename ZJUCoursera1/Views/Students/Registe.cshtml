@@ -1,0 +1,52 @@
+﻿@model ZJUCoursera1.Models.RegisteModel
+
+@{
+    ViewBag.Title = "学生注册";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <fieldset>
+        <legend>学生注册</legend>
+        <table>
+            <tr>
+                <td style="width:5em;">@Html.LabelFor(m => m.Number)</td>
+                <td colspan="2">@Html.EditorFor(m => m.Number, new { htmlAttributes = new { @class = "form-control" } })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td colspan="2">@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Year)</td>
+                <td colspan="2">@Html.TextBoxFor(m => m.Year, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Major)</td>
+                <td colspan="2">@Html.TextBoxFor(m => m.Major, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Password)</td>
+                <td colspan="2">@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ConfirmPassword)</td>
+                <td colspan="2">@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })</td>
+
+            </tr>
+
+
+            <tr><td colspan="3"><hr /></td></tr>
+            <tr>
+                <td><input type="submit" value="注册" class="btn btn-default" /></td>
+                <td>@Html.ActionLink("登录", "Login") 如果你已经有帐户。</td>
+                <td></td>
+            </tr>
+        </table>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

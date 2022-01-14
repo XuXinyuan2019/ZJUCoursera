@@ -1,0 +1,48 @@
+﻿@model ZJUCoursera1.DAL.SC
+
+@{
+    ViewBag.Title = "删除选课";
+}
+
+<h2>删除信息</h2>
+
+<h3>你确定要删除吗</h3>
+<div>
+    <h4>选课</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SelectAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SelectAt)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

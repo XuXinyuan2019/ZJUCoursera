@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ZJUCoursera1.Models.ShopCartItem>
+@{
+    ViewBag.Title = "选课";
+    string UpdateQuantityUrl = Url.Action("UpdateQuantity") + "/";
+    string DeleteBookUrl = Url.Action("DeleteBook") + "/";
+    string ThisUrl = Url.Action("Index");
+    string TurnToOrderUrl = Url.Action("TurnToOrder");
+    string LoginUrl = Url.Action("Login", "Students", new { returnUrl = ThisUrl });
+}
+
+<h2>恭喜你选课成功。要好好上课哦！</h2>
+
+

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ZJUCoursera1.Models.ShopCartItem>
+@{
+    ViewBag.Title = "预选课程";
+    string UpdateQuantityUrl = Url.Action("UpdateQuantity") + "/";
+    string DeleteBookUrl = Url.Action("DeleteBook") + "/";
+    string ThisUrl = Url.Action("Index");
+    string TurnToOrderUrl = Url.Action("TurnToOrder");
+    string LoginUrl = Url.Action("Login", "Students", new { returnUrl = ThisUrl });
+}
+
+<h2>预选课程</h2>
+<hr class="main-hr" />
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.theBook.Name)</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.theBook.Name)</td>
+            <td>
+                <a href="javascript:deleteBook(@item.theBook.ID);">删除</a>
+            </td>
+        </tr>
+    }
+</table>
+<hr />
+@if (Session["CurrentUser"] == null)
+{
+    <a href="@LoginUrl">登录</a><span>&nbsp;后才可生成订单</span>
+}
+else
+{
+    if (Model.Count() > 0)
+    {
+        <a href="@TurnToOrderUrl">确认选课</a>
+    }
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    function deleteBook(bookId) {
+        var result = confirm("你确定要删除吗?");
+        //alert(typeof result + result.toString());  //boolean true/false
+        if (result == true) {
+            //alert(bookId.toString() + " deleted !");
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "@DeleteBookUrl", false);
+            var data = new FormData();
+            data.append("bookId", bookId.toString());
+            xhr.send(data);
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                alert(xhr.responseText);
+                window.location.reload();
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    }
+    function updateQuantity(bookId) {
+        var result = prompt("请输入新数量", "1");
+        //alert(typeof result + result.toString());  //string
+        if (result != null) {
+            //alert(bookId.toString() + " updated !");
+            var newQuantity = parseInt(result);
+            if (newQuantity != NaN) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("post", "@UpdateQuantityUrl", false);
+                    var data = new FormData();
+                    data.append("bookId", bookId.toString());
+                    data.append("newQuantity", newQuantity.toString());
+                    xhr.send(data);
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                        alert(xhr.responseText);
+                        window.location.reload();
+                    } else {
+                        alert("Request was unsuccessful: " + xhr.status);
+                    }
+
+                } else { alert("输入的是无效数字！"); }
+            }
+        }
+    </script>
+}

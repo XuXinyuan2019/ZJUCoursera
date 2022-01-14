@@ -1,0 +1,63 @@
+﻿@model List<ZJUCoursera1.DAL.Weekday>
+
+@{
+    ViewBag.Title = "按时间选课";
+    AjaxOptions ajaxOptions = new AjaxOptions { UpdateTargetId = "coursesSelector", HttpMethod = "GET", InsertionMode = InsertionMode.Replace };
+}
+
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-2" style="font-size:1.2em;">选择一个时间</div>
+    
+    <div class="col-md-4">
+        @using (Ajax.BeginForm("GetSearchCourses", "Home", ajaxOptions))
+        {
+            <table>
+                <tr>
+                    <td><input type="text" name="id" class="form-control" /></td>
+                    <td><button type="submit" class="btn btn-default">搜索课程</button></td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+<hr class="main-hr" />
+<div class="row">
+    <div class="col-md-2">
+        @foreach (ZJUCoursera1.DAL.Weekday item in Model)
+        {
+            <div style="margin-top:10px; margin-bottom:10px;">
+                @Ajax.ActionLink(item.Weekday1, "GetWeekdayCourses", new { id = item.ID }, ajaxOptions)
+            </div>
+        }
+    </div>
+    <div class="col-md-10" id="coursesSelector">
+        @Html.Partial("_CoursesPartial2", (List<ZJUCoursera1.DAL.Course>)(ViewBag.BookList))
+    </div>
+    
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function javascriptBooks() {
+            var a = document.getElementById("searchString");
+            var searchString = a.value;
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("get", '@Url.Action("GetSearchCourses")' + "/" + searchString, false);  //false表示不要异步
+            var data = new FormData();
+            data.append("id", searchString);
+            xhr.send(null);  //如果没有数据要发送，也要填上null
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                document.getElementById("coursesSelector").innerHTML = xhr.responseText;
+                //window.location.reload();
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+        function jQueryLoadBooks() {
+            var a = document.getElementById("searchString");
+            var searchString = a.value;
+            $("#coursesSelector").load('@Url.Action("GetSearchCourses")' + "/" + searchString);
+        }
+    </script>
+}

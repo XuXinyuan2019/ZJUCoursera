@@ -1,0 +1,82 @@
+﻿@model ZJUCoursera1.DAL.Course
+
+@{
+    ViewBag.Title = "课程信息";
+}
+
+<h2>细节信息</h2>
+
+<div>
+    <h4>课程</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject.Subject1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject.Subject1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weekday.Weekday1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weekday.Weekday1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Intro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Intro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Max)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Max)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

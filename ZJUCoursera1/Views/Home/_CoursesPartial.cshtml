@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ZJUCoursera1.DAL.Course>
+
+<table class="table">
+    <tr>
+        <th>名称</th>
+        <th>学科</th>
+        <th>时间</th>
+        <th>时间段</th>
+        <th>教师</th>
+        <th>简介</th>
+
+        <th style="width:68px;"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Subject.Subject1)</td>
+            <td>@Html.DisplayFor(modelItem => item.Weekday.Weekday1)</td>
+            <td>@Html.DisplayFor(modelItem => item.Time)</td>
+            <td>@Html.DisplayFor(modelItem => item.Teacher)</td>
+            <td>@Html.DisplayFor(modelItem => item.Intro)</td>
+
+            <td><button type="button" onclick="addToShopCart(@item.ID);" class="btn btn-default">选课</button></td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    function addToShopCart(bookId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", '@Url.Action("AddToShopCart", "Home")', false);
+        var data = new FormData();
+        data.append("id", bookId.toString());
+        xhr.send(data);
+        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+            alert(xhr.responseText);
+        } else {
+            alert("Request was unsuccessful: " + xhr.status);
+        }
+
+    }
+</script>

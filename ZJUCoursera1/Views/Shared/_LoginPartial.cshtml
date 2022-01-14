@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    string RegisteUrl = Url.Action("Registe", "Students");
+    string LoginUrl = Url.Action("Login", "Students");
+    string LoginUrl2 = Url.Action("Login2", "Students");
+}
+
+@if (Session["CurrentUser"] != null)
+{
+    ZJUCoursera1.DAL.Student CurrentUser = (ZJUCoursera1.DAL.Student)(Session["CurrentUser"]);
+    using (Html.BeginForm("LogOff", "Students", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("你好，" + CurrentUser.Name + "！", "Edit", new { id = CurrentUser.ID })
+            </li>
+            <li>@Html.ActionLink("预选课程", "Index", "ShopCart")</li>
+            <li>@Html.ActionLink("我的课程", "Index", "SCs")</li>
+
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
+        </ul>
+    }
+}
+
+else if (Session["CurrentManager"] != null)
+{
+    using (Html.BeginForm("LogOff", "Students", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("你好，管理员！选择你要管理的内容:","About","Home")</li>
+            <li>@Html.ActionLink("学生", "Index", "Students")</li>
+            <li>@Html.ActionLink("课程", "Index", "Courses")</li>
+            <li>@Html.ActionLink("学科", "Index", "Subjects")</li>
+            <li>@Html.ActionLink("选课记录", "Index_original", "SCs")</li>
+
+
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a id="registerLink" href="@RegisteUrl">学生注册</a></li>
+        <li><a href="@LoginUrl">学生登录</a></li>
+        <li><a href="@LoginUrl2">管理员登录</a></li>
+    </ul>
+}
